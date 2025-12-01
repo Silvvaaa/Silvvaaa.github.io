@@ -1,0 +1,135 @@
+/* Alap beállítások és színek */
+:root {
+    --bg-color: #1e1e2e;       /* Sötét háttér */
+    --card-bg: #2a2a40;        /* Kártya háttér */
+    --text-main: #ffffff;      /* Fő szöveg */
+    --text-muted: #a6a6c0;     /* Halványabb szöveg */
+    --accent: #00ff9d;         /* Neon zöld kiemelés (Pythonos) */
+    --btn-hover: #00cc7d;      /* Gomb sötétebb zöldje */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px 0;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 20px;
+}
+
+header h1 {
+    font-family: 'Roboto Mono', monospace;
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--accent);
+}
+
+header p {
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+/* Kártyák stílusa */
+.file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.file-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+}
+
+.file-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.1);
+    border-color: var(--accent);
+}
+
+.file-info {
+    flex: 1; /* Hogy kitöltse a helyet a gombig */
+    padding-right: 20px;
+}
+
+.file-info h3 {
+    margin: 0 0 5px 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+}
+
+.theme {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Letöltés gomb stílusa */
+.download-btn {
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-family: 'Roboto Mono', monospace;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Hogy ne törjön több sorba a gomb szövege */
+}
+
+.download-btn:hover {
+    background-color: var(--accent);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Mobilnézet: ha telefonon nézik, a gomb menjen a szöveg alá */
+@media (max-width: 600px) {
+    .file-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .file-info {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .download-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box; /* Hogy a padding ne nyomja szét */
+    }
+}
