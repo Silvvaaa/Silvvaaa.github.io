@@ -1,7 +1,7 @@
 import sys
+import random
 
 def solve_crab_graphs():
-    # Bemenet olvasása
     input_data = sys.stdin.read().split()
     if not input_data:
         return
@@ -16,77 +16,68 @@ def solve_crab_graphs():
 
     for _ in range(num_test_cases):
         try:
-            N = int(next(iterator)) # Csúcsok száma
-            T = int(next(iterator)) # Max lábak száma
-            M = int(next(iterator)) # Élek száma
+            N = int(next(iterator))
+            T = int(next(iterator))
+            M = int(next(iterator))
         except StopIteration:
             break
 
-        # Gráf építése (szomszédsági lista)
-        # 1-től N-ig indexelünk, de a listában 0-tól N-1-ig tároljuk
+        # Gráf építése
         adj = {i: set() for i in range(1, N + 1)}
-        
         for _ in range(M):
             u = int(next(iterator))
             v = int(next(iterator))
             adj[u].add(v)
             adj[v].add(u)
 
-        covered_vertices = set()
-        total_covered_count = 0
-
-        # Mivel a mohó algoritmus sorrendfüggő, érdemes lehet többször futtatni 
-        # vagy finomítani, de itt a "Legjobb Fej - Legrosszabb Láb" elvet követjük.
-        # Ez egy iteratív folyamat: amíg találunk érvényes rákot.
+        # --- A JAVÍTÁS ITT KEZDŐDIK ---
+        # Többször futtatjuk le véletlenszerű sorrendben, és a maximumot vesszük.
+        # Mivel N kicsi (<= 100), ez nagyon gyors lesz.
+        max_covered_global = 0
         
-        while True:
-            # 1. Keressük meg a potenciális Fejeket (amik még nincsenek lefedve)
-            potential_heads = []
-            for v in range(1, N + 1):
-                if v not in covered_vertices:
-                    # Számoljuk meg a még szabad szomszédokat
-                    free_neighbors = [n for n in adj[v] if n not in covered_vertices]
-                    if len(free_neighbors) > 0:
-                        potential_heads.append((v, free_neighbors))
+        # 100-szor próbálkozunk
+        for _ in range(100):
+            covered_vertices = set()
+            current_covered_count = 0
             
-            if not potential_heads:
-                break
+            # Készítünk egy listát a csúcsokról és összekeverjük
+            nodes = list(range(1, N + 1))
+            random.shuffle(nodes)
             
-            # 2. Rendezés: A legtöbb szabad szomszéddal rendelkező csúcs legyen az első
-            # (Heurisztika: Nagy fokszámú csúcs jobb fejnek)
-            potential_heads.sort(key=lambda x: len(x[1]), reverse=True)
-            
-            best_crab_found = False
-            
-            # Próbáljuk meg a legjobb fejet kiválasztani
-            for head, neighbors in potential_heads:
-                # 3. Válasszuk ki a lábakat
-                # Heurisztika: Olyan szomszédokat válasszunk lábnak, akiknek a legkevesebb
-                # szabad szomszédjuk van (hogy ne pazaroljunk el potenciális jó fejeket).
+            # Ebben a véletlenszerű sorrendben próbálunk fejeket választani
+            for head in nodes:
+                if head in covered_vertices:
+                    continue
                 
-                # Szomszédok rendezése fokszám szerint növekvő sorrendbe
-                neighbors_sorted = sorted(neighbors, key=lambda n: len([x for x in adj[n] if x not in covered_vertices]))
+                # Megnézzük a szabad szomszédokat
+                free_neighbors = [n for n in adj[head] if n not in covered_vertices]
                 
-                # Maximum T lábat választhatunk
-                feet_count = min(len(neighbors_sorted), T)
+                if not free_neighbors:
+                    continue
+                
+                # Heurisztika: A szomszédok közül azokat választjuk lábnak,
+                # akiknek a legkevesebb szabad szomszédjuk van (hogy a jó fejeket megkíméljük).
+                # De itt is vihetünk bele egy kis véletlent, vagy maradhatunk a rendezésnél.
+                # Most maradunk a rendezésnél, mert a fő ciklus keverése általában elég.
+                free_neighbors.sort(key=lambda n: len([x for x in adj[n] if x not in covered_vertices]))
+                
+                feet_count = min(len(free_neighbors), T)
                 
                 if feet_count >= 1:
-                    # Találtunk egy érvényes rákot!
-                    selected_feet = neighbors_sorted[:feet_count]
+                    selected_feet = free_neighbors[:feet_count]
                     
-                    # Jelöljük be a fedett csúcsokat
+                    # Foglaljuk le
                     covered_vertices.add(head)
                     for foot in selected_feet:
                         covered_vertices.add(foot)
                     
-                    total_covered_count += (1 + feet_count)
-                    best_crab_found = True
-                    break # Újra kell számolni a fokszámokat a következő körhöz
+                    current_covered_count += (1 + feet_count)
             
-            if not best_crab_found:
-                break
+            # Ha ez a kör jobb eredményt adott, mint az eddigiek, mentsük el
+            if current_covered_count > max_covered_global:
+                max_covered_global = current_covered_count
 
-        results.append(str(total_covered_count))
+        results.append(str(max_covered_global))
 
     print('\n'.join(results))
 
