@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
 <head>
-    <title>Az én weboldalam</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Kódjaim</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Szia! Ez az új weboldalam a GitHubon.</h1>
-    <p>Most még csak tesztelem, de hamarosan bővítem.</p>
-    <a href="crab.py">Kattints ide a crab.py letöltéséhez</a>
+
+    <div class="container">
+        <header>
+            <h1>Python Projekt Gyűjtemény</h1>
+            <p>Itt töltheted le az általam készített scripteket és feladatokat.</p>
+        </header>
+
+        <div class="file-list">
+            
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>Jelszó Generátor</h3> <p class="theme">Tematika: Biztonság / Randomizálás</p>
+                    <p class="desc">Ez a script véletlenszerű, erős jelszavakat generál a felhasználó által megadott hosszúságban.</p>
+                </div>
+                <a href="jelszo_gen.py" class="download-btn" download>Letöltés (.py)</a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>Valutaváltó</h3>
+                    <p class="theme">Tematika: API kezelés / Matek</p>
+                    <p class="desc">Valós idejű árfolyamokat kérdez le egy ingyenes API-ról és átváltja az összeget.</p>
+                </div>
+                <a href="valuta.py" class="download-btn" download>Letöltés (.py)</a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>Web Scraper</h3>
+                    <p class="theme">Tematika: Adatgyűjtés / HTML</p>
+                    <p class="desc">Egy egyszerű robot, ami leszedi a híreket egy megadott hírportálról.</p>
+                </div>
+                <a href="scraper.py" class="download-btn" download>Letöltés (.py)</a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>Kígyós Játék</h3>
+                    <p class="theme">Tematika: Játékfejlesztés / Pygame</p>
+                    <p class="desc">A klasszikus Nokia kígyós játék Pythonban újraírva.</p>
+                </div>
+                <a href="snake.py" class="download-btn" download>Letöltés (.py)</a>
+            </div>
+
+            <div class="file-card">
+                <div class="file-info">
+                    <h3>Adatvizualizáció</h3>
+                    <p class="theme">Tematika: Data Science / Grafikonok</p>
+                    <p class="desc">Excel táblázatból olvas be adatokat és kördiagramot rajzol belőle.</p>
+                </div>
+                <a href="data_viz.py" class="download-btn" download>Letöltés (.py)</a>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>
