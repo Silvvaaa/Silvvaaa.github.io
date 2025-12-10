@@ -1,11 +1,10 @@
 import sys
 
-# Növeljük a rekurziós limitet, bár itt iteratív megoldást használunk,
-# de versenyprogramozásnál jó szokás.
+
 sys.setrecursionlimit(2000)
 
 def solve_pigbank():
-    # Bemenet gyors olvasása
+    
     input_data = sys.stdin.read().split()
     
     if not input_data:
@@ -37,10 +36,7 @@ def solve_pigbank():
             wei = int(next(iterator))
             coins.append((val, wei))
             
-        # --- Dinamikus Programozás ---
-        # dp[i] = a minimális pénzösszeg, aminek a súlya pontosan i
-        # Inicializálás: végtelennel, mert minimumot keresünk.
-        # A 0 súlyhoz 0 pénz kell.
+      
         
         INF = float('inf')
         dp = [INF] * (target_weight + 1)
@@ -63,7 +59,7 @@ def solve_pigbank():
         else:
             results.append(f"The minimum amount of money in the piggy-bank is {dp[target_weight]}.")
 
-    # Kiírás egyben (gyorsabb I/O)
+  
     print('\n'.join(results))
 
 if __name__ == "__main__":
