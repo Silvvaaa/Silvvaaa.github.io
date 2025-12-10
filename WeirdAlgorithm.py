@@ -1,7 +1,7 @@
 import sys
 
 def solve():
-    # Beolvassuk az egyetlen számot
+    
     input_data = sys.stdin.read().split()
     if not input_data:
         return
@@ -17,7 +17,7 @@ def solve():
             n = n * 3 + 1
         result.append(str(n))
 
-    # Kiírjuk a számokat szóközzel elválasztva
+    
     print(" ".join(result))
 
 if __name__ == "__main__":
